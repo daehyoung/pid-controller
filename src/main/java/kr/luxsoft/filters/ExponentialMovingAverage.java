@@ -22,5 +22,9 @@ public class ExponentialMovingAverage {
         window.enqueue(measurement);
         return window.ema(alpha);
     }
+
+    public double ema(){
+        return window.ema(alpha);
+    }
 }
 
