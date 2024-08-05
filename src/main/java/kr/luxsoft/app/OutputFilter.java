@@ -7,5 +7,7 @@ package kr.luxsoft.app;
  * @version: 1.0
  */
 public interface OutputFilter {
-    double filter(double previous,  double rawOutput, double deltaTime);
+   default double filter(double previous,  double rawOutput, double deltaTime){
+         return rawOutput;
+   }
 }

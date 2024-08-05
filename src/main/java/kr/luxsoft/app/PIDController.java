@@ -24,15 +24,19 @@ public class PIDController {
     private double previousError;
     private double integral;
     private double previousOutput;
-    final private OutputFilter filter;
+    private OutputFilter filter = new OutputFilter() {};
 
-    public PIDController(double kP, double kI, double kD, OutputFilter filter) {
+    public PIDController(double kP, double kI, double kD ) {
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
         this.setPoint = 0.0;
         this.previousError = 0.0;
         this.integral = 0.0;
+    }
+
+    public PIDController(double kP, double kI, double kD, OutputFilter filter) {
+        this(kP,kI,kD);
         this.filter = filter;
     }
 

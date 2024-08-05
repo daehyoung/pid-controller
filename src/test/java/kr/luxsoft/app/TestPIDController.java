@@ -11,9 +11,7 @@ public class TestPIDController {
 
     @Test
     void test0(){
-        // Example usage with MaxChangeFilter
-        OutputFilter filter = new NullFilter(); //
-        PIDController pid = new PIDController(1, 0.0, 0.00, filter);
+        PIDController pid = new PIDController(1, 0.0, 0.00);
         pid.setSetPoint(10);
 
         double currentValue = 170.0;
