@@ -2,7 +2,24 @@ package kr.luxsoft.app;
 
 
 public class PIDController {
-    private double kP, kI, kD;
+
+    /***
+     * proportional gain
+     */
+    private double kP;
+    /***
+     *  integral gain
+     */
+    private double kI;
+    /***
+     *  derivative gain
+     */
+    private double kD;
+
+    /**
+     * Set point
+     * 설정값
+     */
     private double setPoint;
     private double previousError;
     private double integral;
@@ -23,6 +40,12 @@ public class PIDController {
         this.setPoint = setPoint;
     }
 
+    /**
+     *
+     * @param currentValue - 현재 값
+     * @param deltaTime - 시간 간격
+     * @return
+     */
     public double calculate(double currentValue, double deltaTime) {
 
         // Calculate error
