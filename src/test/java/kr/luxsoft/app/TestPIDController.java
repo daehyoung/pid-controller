@@ -1,5 +1,7 @@
 package kr.luxsoft.app;
 
+import kr.luxsoft.filters.LowPassFilter;
+import kr.luxsoft.filters.MaxChangeFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +15,7 @@ public class TestPIDController {
         OutputFilter filter = new MaxChangeFilter(10.0); // maxChange = 10 units
 //        OutputFilter filter = new NullFilter(); //
         PIDController pid = new PIDController(1, 0.0, 0.00, filter);
-        pid.setSetpoint(10);
+        pid.setSetPoint(10);
 
         double currentValue = 170.0;
         double deltaTime = 1.0; // Fixed control interval of 1 second
@@ -26,7 +28,7 @@ public class TestPIDController {
             double output = pid.calculate(currentValue, deltaTime);
             controlValue = currentValue+output;
             currentValue =  currentValue + output; // Update current value for demonstration purposes
-            System.out.println("Step " + i + ", Output: " + output + ", Current Value: " + currentValue +", control Value: " + controlValue);
+            log.info("Step " + i + ", Output: " + output + ", Current Value: " + currentValue +", control Value: " + controlValue);
         }
 
 
@@ -36,25 +38,21 @@ public class TestPIDController {
     @Test
     void test2(){
 
-        double currentValue = 50.0;
+        double currentValue = 100.0;
         double deltaTime = 1.0; // Fixed control interval of 1 second
 
-        OutputFilter lowPassFilter = new LowPassFilter(0.1); // alpha = 0.1
+        OutputFilter lowPassFilter = new LowPassFilter(0.05,170.0); // alpha = 0.1
 
-        PIDController pid = new PIDController(1.0, 0.1, 0.01, lowPassFilter);
-        pid.setSetpoint(100.0);
-
-        for (int i = 0; i < 20; i++) {
+        PIDController pid = new PIDController(1.0, 0, 0, lowPassFilter);
+        pid.setSetPoint(10);
+        pid.initializeOutput(0);
+        double controlValue = 0.0;
+        for (int i = 0; i < 100; i++) {
             double output = pid.calculate(currentValue, deltaTime);
-            currentValue += output; // Update current value for demonstration purposes
-            System.out.println("Step " + i + ", Output: " + output + ", Current Value: " + currentValue);
+            controlValue = currentValue + output;
+            currentValue =  currentValue + output;
+            log.info("Step " + i + ", Output: " + output + ", Current Value: " + currentValue +", control Value: " + controlValue);
 
-            // Simulate waiting for the next control cycle (e.g., 1 second)
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();
-//            }
         }
     }
 }

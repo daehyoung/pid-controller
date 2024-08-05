@@ -1,4 +1,6 @@
-package kr.luxsoft.app;
+package kr.luxsoft.filters;
+
+import kr.luxsoft.app.OutputFilter;
 
 /**
  * @author: Cho, Daehyoung
@@ -13,7 +15,7 @@ public class NullFilter implements OutputFilter {
     }
 
     @Override
-    public double filter(double previousOutput, double rawOutput, double deltaTime) {
+    public double filter(double previous,  double rawOutput, double deltaTime) {
         return rawOutput;
     }
 }

@@ -6,6 +6,6 @@ package kr.luxsoft.app;
  * @since: 2024-08-02
  * @version: 1.0
  */
-interface OutputFilter {
-    double filter(double previousOutput, double rawOutput, double deltaTime);
+public interface OutputFilter {
+    double filter(double previous,  double rawOutput, double deltaTime);
 }

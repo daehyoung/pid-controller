@@ -1,5 +1,6 @@
-package kr.luxsoft.app;
+package kr.luxsoft.filters;
 
+import kr.luxsoft.app.OutputFilter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -12,7 +13,7 @@ public class MaxChangeFilter implements OutputFilter {
     }
 
     @Override
-    public double filter(double previousOutput, double change, double deltaTime) {
+    public double filter( double previous, double change, double deltaTime) {
 
         log.info("change :: {}",change);
         if (Math.abs(change) > maxChange) {
